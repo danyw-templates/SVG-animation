@@ -4,8 +4,16 @@
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     margin: 8px auto;
     padding: 16px;
-    width: 40vw;
+    width: 100vw;
 }
 h1 {
     text-align: center;
+}
+
+
+#pupil-1, #iris-1, #pupil-2, #iris-2 {
+    transform: translate(
+        calc(-3px + 5px * var(--mouse-x)),
+        calc(-1px + 3px * var(--mouse-y))
+    );
 }

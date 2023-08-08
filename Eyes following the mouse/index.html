@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- https://www.youtube.com/watch?v=TGe3pS5LqEw -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        position: relative;
+      }
+      #eyes,
+      #eyes img {
+        position: relative;
+      }
+      
+      @media screen and (max-width: 768px) {
+        .eye {
+          width: 20px;
+          height: auto;
+        }
+        #anchor {
+          width: 350px;
+          height: auto;
+        }
+
+        #eyes img:nth-child(1) {
+          bottom: 114px !important;
+          left: 83px !important;
+        }
+        #eyes img:nth-child(2) {
+          bottom: 126px !important;
+          left: 116px !important;
+        }
+        #eyes img:nth-child(3) {
+          bottom: 242px !important;
+          left: 160px !important;
+        }
+        #eyes img:nth-child(4) {
+          bottom: 247px !important;
+          left: 181px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="container">
+        <img id="anchor" src="morty.png" alt="morty" />
+        <div id="eyes">
+          <img
+            class="eye"
+            src="eye.png"
+            alt="eye"
+            style="bottom: 229px; left: 162px"
+          />
+          <img
+            class="eye"
+            src="eye.png"
+            alt="eye"
+            style="bottom: 252px; left: 224px"
+          />>
+          <img
+            class="eye"
+            src="eye.png"
+            alt="eye"
+            style="bottom: 482px; left: 303px"
+          />>
+          <img
+            class="eye"
+            src="eye.png"
+            alt="eye"
+            style="bottom: 494px; left: 347px"
+          />>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script>
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const eyes = document.querySelectorAll('.eye');
+    let anchorX = 0;
+    let anchorY = 0;
+
+    mediaQuery.addEventListener('change', (event) => {
+      mediaQueryResponse(event.target);
+    });
+
+    mediaQueryResponse();
+
+    document.addEventListener('mousemove', (e) => {
+ 
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
+
+      eyes.forEach((eye) => {
+        eye.style.transform = `rotate(${90 + angleDeg}deg)`;
+        anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
+      });
+    });
+
+    function angle(cx, cy, ex, ey) {
+      const dy = ey - cy;
+      const dx = ex - cx;
+      const rad = Math.atan2(dy, dx); // range (-PI, PI]
+      const deg = (rad * 180) / Math.PI; // rads to degs, range (-180, 180]
+      return deg;
+    }
+
+    function mediaQueryResponse() {
+      const anchor = document.getElementById('anchor');
+      const rect = anchor.getBoundingClientRect();
+      anchorX = rect.left + rect.width / 2;
+      anchorY = rect.top + rect.height / 2;
+    }
+  </script>
+</html>
