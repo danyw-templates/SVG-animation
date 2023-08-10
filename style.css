@@ -10,10 +10,36 @@ h1 {
     text-align: center;
 }
 
+#portrait {
+    width: 800px;
+}
 
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
 #pupil-1, #iris-1, #pupil-2, #iris-2 {
     transform: translate(
         calc(-3px + 5px * var(--mouse-x)),
         calc(-1px + 3px * var(--mouse-y))
     );
+    transition: all 0.08s ease-out 0.01s;
 }
+
+/* #head-main {
+    transform: translate(
+        calc(-3px + 5px * var(--mouse-x)),
+        calc(-1px + 3px * var(--mouse-y))
+    );
+    transition: all 0.1s ease-out 0.01s;
+} */
+
+#head-main {
+    transform-origin: center center;
+    /* transform: rotate(calc(0deg + var(--head-tilt-angle))); */
+    /* transform: rotate(90 + var(--head-tilt-angle)); */
+    /* transform: rotate(var(--rot)); */
+    fill: aqua;
+    
+} 

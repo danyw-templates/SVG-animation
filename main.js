@@ -31,8 +31,72 @@
 //         }
 
 const root = document.documentElement;
+const head = document.getElementById("head-main");
+
+const anchor = document.getElementById("portrait");
+const rect = anchor.getBoundingClientRect();
+const anchorX = rect.left + rect.width / 2;
+const anchorY = rect.top + rect.height / 2;
+// const initialAngle = angle(anchorX, anchorY, anchorX + 1, anchorY); // Initial angle with horizontal axis
+const maxRotation = 15; // Maximum rotation angle in degrees
 
 document.addEventListener("mousemove", e => {
     root.style.setProperty("--mouse-x", e.clientX / innerWidth);
     root.style.setProperty("--mouse-y", e.clientY / innerHeight);
+
+    // const currentAngle = angle(anchorX, anchorY, e.clientX, e.clientY);
+
+    // const angleDeg = `${angle(e.clientX, e.clientY, anchorX, anchorY)}deg`;
+    const angleDeg = angle(e.clientX, e.clientY, anchorX, anchorY);
+    root.style.setProperty("--angle", angleDeg);
+
+    // const headTiltAngle = `${Math.min(45, Math.max(-40, angleDeg - 90))}deg`;
+    const headTiltAngle = `${angleDeg}deg`;
+    // console.log(headTiltAngle);
+    root.style.setProperty("--head-tilt-angle", headTiltAngle);
+
+//     const angleX = map(e.clientX, e.clientX - 100, e.clientX + 100, -3, 3);
+//   const angleY = map(e.clientY, e.clientY + 100, e.clientY - 100, -3, 3);
+// console.log(angleX, angleY);
+//   const rotation = `rotateX(${angleY}deg) rotateY(${angleX}deg)`;
+//   root.style.setProperty("--rot", rotation);
+
+
+
+  const angleX = maxRotation * ((e.clientY - anchorX) / anchorX);
+    const angleY = maxRotation * ((e.clientX - anchorY) / anchorY);
+    const rotation = `rotateX(${angleY}deg) rotateY(${angleX}deg)`;
+    console.log(rotation);
+    head.style.transform = rotation;
     });
+
+
+    function angle(cx, cy, ex, ey) {
+        const dy = ey - cy;
+        const dx = ex - cx;
+        const rad = Math.atan2(dy, dx); // range (-PI, PI]
+        const deg = (rad * 180) / Math.PI; // rads to degs, range (-180, 180]
+        //if (theta < 0) theta = 360 + theta; // range [0, 360)
+        return deg;
+    }
+
+
+
+    function map(value, fromMin, fromMax, toMin, toMax) {
+        return (value - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
+    }
+
+    // ********************
+// const portrait = document.getElementById('portrait');
+// const mouseXOffset = window.innerWidth / 2;
+// const mouseYOffset = window.innerHeight / 2;
+
+// document.addEventListener('mousemove', (event) => {
+//   const mouseX = event.clientX;
+//   const mouseY = event.clientY;
+
+//   const deltaX = (mouseX - mouseXOffset) * 0.05;
+//   const deltaY = (mouseY - mouseYOffset) * 0.05;
+
+//   portrait.style.transform = `translateY(${deltaY}px) rotateX(${deltaY * 2}deg) rotateY(${deltaX}deg)`;
+// });
