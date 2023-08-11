@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+           display: flex;
+              justify-content: center;
+                align-items: center;
+                height: 100vh;
+
+        }
+    </style>
+<body>
+
+<svg id="face" height="210" width="500">
+  <circle cx="100" cy="100" r="80" stroke="black" stroke-width="3" fill="white" />
+  <circle id="left-eye" cx="70" cy="80" r="10" stroke="black" stroke-width="3" fill="black" />
+  <circle id="right-eye" cx="130" cy="80" r="10" stroke="black" stroke-width="3" fill="black" />
+  <ellipse id="nose" cx="100" cy="100" rx="10" ry="20" fill="black" />
+  <path id="mouth" d="M 70 130 Q 100 150, 130 130" stroke="black" fill="transparent" />
+</svg>
+
+<script>
+// Get the SVG elements
+const face = document.getElementById('face');
+const leftEye = document.getElementById('left-eye');
+const rightEye = document.getElementById('right-eye');
+const nose = document.getElementById('nose');
+const mouth = document.getElementById('mouth');
+
+// Listen for mouse move events
+document.addEventListener('mousemove', function(e) {
+  // Calculate the rotation based on the mouse's y position
+  let rotation;
+  if (e.clientY < window.innerHeight / 2) {
+    rotation = -3 + 6 * (e.clientY / (window.innerHeight / 2));
+  } else {
+    rotation = 3 - 6 * ((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2));
+  }
+  console.log(rotation);
+
+  // Apply the rotation to the SVG elements
+  face.style.transform = `rotate(${rotation}deg)`;
+  leftEye.style.transform = `rotate(${rotation}deg)`;
+  rightEye.style.transform = `rotate(${rotation}deg)`;
+  nose.style.transform = `rotate(${rotation}deg)`;
+  mouth.style.transform = `rotate(${rotation}deg)`;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        svg {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+<body>
+    <svg id="face" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <!-- Head -->
+        <circle cx="100" cy="100" r="80" stroke="black" stroke-width="3" fill="white" />
+        <!-- Left Eye -->
+        <circle cx="70" cy="80" r="10" stroke="black" stroke-width="2" fill="black" />
+        <!-- Right Eye -->
+        <circle cx="130" cy="80" r="10" stroke="black" stroke-width="2" fill="black" />
+        <!-- Nose -->
+        <line x1="100" y1="90" x2="100" y2="120" stroke="black" stroke-width="2"/>
+        <!-- Left Ear -->
+        <ellipse cx="30" cy="100" rx="20" ry="30" stroke="black" stroke-width="2" fill="white"/>
+        <!-- Right Ear -->
+        <ellipse cx="170" cy="100" rx="20" ry="30" stroke="black" stroke-width="2" fill="white"/>
+    </svg>
+
+    <script>
+        const face = document.querySelector('#face');
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const tiltFace = (e) => {
+            // Calculate tilt
+            const x = (e.pageX - width / 2) / (width / 2);
+            const y = (e.pageY - height / 2) / (height / 2);
+            const tiltX = y * 10;
+            const tiltY = x * -10;
+
+            // Apply tilt
+            face.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        }
+
+        window.addEventListener('mousemove', tiltFace);
+    </script>
+</body>
+</html>

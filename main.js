@@ -38,7 +38,12 @@ const rect = anchor.getBoundingClientRect();
 const anchorX = rect.left + rect.width / 2;
 const anchorY = rect.top + rect.height / 2;
 // const initialAngle = angle(anchorX, anchorY, anchorX + 1, anchorY); // Initial angle with horizontal axis
-const maxRotation = 15; // Maximum rotation angle in degrees
+const maxRotation = 7; // Maximum rotation angle in degrees
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+
 
 document.addEventListener("mousemove", e => {
     root.style.setProperty("--mouse-x", e.clientX / innerWidth);
@@ -63,11 +68,38 @@ document.addEventListener("mousemove", e => {
 
 
 
-  const angleX = maxRotation * ((e.clientY - anchorX) / anchorX);
-    const angleY = maxRotation * ((e.clientX - anchorY) / anchorY);
-    const rotation = `rotateX(${angleY}deg) rotateY(${angleX}deg)`;
-    console.log(rotation);
-    head.style.transform = rotation;
+//   const angleX = maxRotation * ((e.clientY - anchorX) / anchorX);
+//     const angleY = maxRotation * ((e.clientX - anchorY) / anchorY);
+
+    // const angleT = maxRotation * ((e.clientX - anchorX + e.clientY - anchorY) / (anchorX + anchorY));
+
+
+//     const deltaX = (e.clientX - anchorX);
+//     const deltaY = (e.clientY - anchorY);
+//     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+// let angleT = maxRotation * (deltaX / distance);
+// angleT = Math.min(Math.max(angleT, -maxRotation), maxRotation);
+
+//     const rotation = `rotate(${angleT}deg)`;
+//     console.log(rotation);
+//     head.style.transform = rotation;
+
+    // const angleXX = maxRotation * ((e.clientY - anchorX) / anchorX);
+
+    // moze tak musze prosto
+    
+
+
+    const angleTi = (-maxRotation * ((e.clientX - anchorX + e.clientY - anchorY) / (anchorX + anchorY)));
+console.log(angleTi);
+const x = (e.pageX - width / 2) / (width / 2);
+            const y = (e.pageY - height / 2) / (height / 2);
+            const tiltX = y * 8;
+            const tiltY = x * -7;
+            head.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotate(${angleTi}deg)`;
+            // head.style.transform = `rotate(${angleTi}deg)`;
+
+
     });
 
 
